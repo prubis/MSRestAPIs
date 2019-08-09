@@ -12,7 +12,7 @@
 RootModule = 'MSRestAPIs.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0'
+ModuleVersion = '1.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -51,7 +51,7 @@ Description = 'Cmdlets to ease Powershell integration with Microsoft''s REST API
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('Az.Accounts')
+RequiredModules = @('AzureRM')
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
