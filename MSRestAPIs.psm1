@@ -96,7 +96,7 @@ Function Get-MicrosoftAPIAuthorisationToken {
         [parameter(ParameterSetName="ByServicePrincipalWithSecret", Mandatory=$true)]
         [parameter(ParameterSetName="ByServicePrincipalWithCertificate", Mandatory=$true)]
         # I had this as a constant at the beginning of the doc, but Posh doesn't like it! Very annoying. You can modify this if you have additional APIs
-        [ValidateSet("https://graph.microsoft.com", "https://graph.windows.net", "https://management.azure.com", "https://consumption.azure.com")]
+        [ValidateSet("https://graph.microsoft.com", "https://graph.windows.net", "https://management.azure.com", "https://consumption.azure.com", "74658136-14ec-4630-ad9b-26e160ff0fc6")]
         [String]$API,
         
         
@@ -121,6 +121,20 @@ Function Get-MicrosoftAPIAuthorisationToken {
     catch{
         Write-Warning "Can't load AzureRM module."
         Return
+    }
+
+    # use a switch statement because there may be additional APIs later that need to be identified (to MS) as GUIDs
+    switch ($API){
+     "74658136-14ec-4630-ad9b-26e160ff0fc6" {
+      $API = "74658136-14ec-4630-ad9b-26e160ff0fc6"
+       
+      Write-Host -ForegroundColor Yellow "Note: The https://main.iam.ad.ext.azure.com API is undocumented, and you're probably using it because you're reverse-engineering the Azure Portal. Good for you!"
+      Write-Host -ForegroundColor Yellow "You need to add an additional header to your method invocations to be able to call it: 'x-ms-client-request-id', whose value is a GUID."
+      Write-Host -ForegroundColor Yellow "e.g."
+      Write-Host -ForegroundColor Yellow "  $RestApiToken.Add('x-ms-client-request-id', (New-Guid).ToString())"
+      Write-Host -ForegroundColor Yellow ""
+      Write-Host -ForegroundColor Yellow "As far as I can tell, the GUID _probably_ should be renewed with each call to the API, but it seems to work without it. I'm guessing that write actions may experience odd behaviour if you don't, though."
+     }
     }
 
     $AuthenticationContext = New-Object "Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext" -ArgumentList "$AuthenticationEndpoint/$TenantName"
