@@ -12,7 +12,7 @@
 RootModule = 'MSRestAPIs.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.2'
+ModuleVersion = '1.21'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -51,7 +51,7 @@ Description = 'Cmdlets to ease Powershell integration with Microsoft''s REST API
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @('AzureRM')
+RequiredModules = @('AzureRm.Profile')
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -107,7 +107,7 @@ PrivateData = @{
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = '1.2:Added the hidden API https://main.iam.ad.ext.azure.com'
+        ReleaseNotes = '1.21: switched from AzureRm module to specifically AzureRm.Profile'
 
         # External dependent modules of this module
         # ExternalModuleDependencies = ''

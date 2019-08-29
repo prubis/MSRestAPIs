@@ -116,7 +116,7 @@ Function Get-MicrosoftAPIAuthorisationToken {
     )
     
     try{
-        Import-Module AzureRM -ErrorAction Stop
+        Import-Module AzureRM.Profile -ErrorAction Stop
     }
     catch{
         Write-Warning "Can't load AzureRM module."
